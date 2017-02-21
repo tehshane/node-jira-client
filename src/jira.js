@@ -744,12 +744,13 @@ export default class JiraApi {
    * @param {string} issueId - Issue to add a worklog to
    * @param {object} worklog - worklog object from the rest API
    * @param {object} newEstimate - the new value for the remaining estimate field
+   * @param {string} [adjustEstimate=auto] - one of 'new', 'leave', 'auto'
    */
-  addWorklog(issueId, worklog, newEstimate) {
+  addWorklog(issueId, worklog, newEstimate, adjustEstimate = 'auto') {
     const header = {
       uri: this.makeUri({
         pathname: `/issue/${issueId}/worklog`,
-        query: { adjustEstimate: 'new', newEstimate },
+        query: { adjustEstimate,  newEstimate },
       }),
       body: worklog,
       method: 'POST',
